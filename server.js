@@ -1,7 +1,10 @@
 var express = require('express');
 var nodemailer = require('nodemailer');
+const cors = require('cors');
+
 require('dotenv').config(); // Load environment variables from .env file
 var app = express();
+app.use(cors());
 
 var smtpTransport = nodemailer.createTransport({
     service: 'Gmail',
@@ -130,13 +133,14 @@ app.get('/send', function (req, res) {
     console.log(mailOptions);
     smtpTransport.sendMail(mailOptions, function (err, response) {
         if (err) {
-            console.log(err);
+            console.error("Error sending email:", err);
             res.end("error");
         } else {
-            console.log("Message sent: " + response.message);
-            res.end("sent");
+            console.log("Message sent:", response);
+            res.status(200).send("sent");
         }
     });
+    
 });
 
 app.listen(8080, function (err) {
