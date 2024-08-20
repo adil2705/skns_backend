@@ -126,7 +126,7 @@ app.get('/send', function (req, res) {
     var mailOptions = {
         to: req.query.to,
         subject: 'Contact Form Message For Skns & Sons IT divison',
-        from: `Contact Form Request <${req.query.from || 'default-email@gmail.com'}>`,
+        from: `Contact Form Request <${req.query.user}>`,
         html: getEmailTemplate(req.query.name, req.query.user, req.query.phone, req.query.text) //function ko send kar ke template ko call kar rhe hai
     };
 
